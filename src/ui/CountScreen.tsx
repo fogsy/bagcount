@@ -1,4 +1,5 @@
 import Slider from '@react-native-community/slider';
+import { setAudioModeAsync, useAudioPlayer } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 import { useKeepAwake } from 'expo-keep-awake';
 import { projectLandmark } from 'expo-mediapipe-pose';
@@ -51,6 +52,8 @@ const LEFT_WRIST = 15;
 const RIGHT_WRIST = 16;
 const MIN_BOX_PX = 24;
 const FLASH_MS = 150;
+const HIT_SOUND_IGNORE_MS = 100;
+const hitSound = require('../../assets/hit.wav');
 const TICK_MS = 50;
 const LEVEL_UI_MS = 100;
 const FRAME_WATCHDOG_MS = 2000;
@@ -273,6 +276,7 @@ export default function CountScreen({ onBack }: Props) {
   const [notice, setNotice] = useState<string | null>(null);
   const [settingsNeeded, setSettingsNeeded] = useState(false);
   const foreground = useForeground();
+  const hitPlayer = useAudioPlayer(hitSound);
 
   const runningRef = useRef(false);
   const recordingRef = useRef(false);
@@ -286,10 +290,24 @@ export default function CountScreen({ onBack }: Props) {
   const viewSizeRef = useRef(viewSize);
   const pendingViewBoxRef = useRef<ViewRect | null>(null);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hitPlayerRef = useRef(hitPlayer);
+  const ignoreAudioUntilRef = useRef(0);
   const lastLevelUiMsRef = useRef(0);
   const lastFrameAtRef = useRef(0);
   const sawFrameRef = useRef(false);
   const settingsRef = useRef<SessionSettings>({ ...DEFAULT_SESSION_SETTINGS });
+
+  useEffect(() => {
+    hitPlayerRef.current = hitPlayer;
+  }, [hitPlayer]);
+
+  useEffect(() => {
+    setAudioModeAsync({
+      playsInSilentMode: true,
+      interruptionMode: 'mixWithOthers',
+      shouldPlayInBackground: false,
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     settingsRef.current = {
@@ -389,6 +407,12 @@ export default function CountScreen({ onBack }: Props) {
         Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Clock_Tick).catch(
           () => {},
         );
+        ignoreAudioUntilRef.current = performance.now() + HIT_SOUND_IGNORE_MS;
+        const player = hitPlayerRef.current;
+        player.volume = 0.85;
+        void player.seekTo(0).then(() => {
+          player.play();
+        });
         setFlash(true);
         if (flashTimerRef.current != null) {
           clearTimeout(flashTimerRef.current);
@@ -406,9 +430,10 @@ export default function CountScreen({ onBack }: Props) {
         noiseGateDb: DEFAULT_SESSION_SETTINGS.noiseGateDb,
       },
       (event) => {
-        if (runningRef.current) {
-          fusion.pushAudio(event);
+        if (!runningRef.current || performance.now() < ignoreAudioUntilRef.current) {
+          return;
         }
+        fusion.pushAudio(event);
       },
       (event) => {
         const now = performance.now();

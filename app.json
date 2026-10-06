@@ -43,6 +43,13 @@
           "enablePhoneStateHandling": false,
           "enableDeviceDetection": false
         }
+      ],
+      [
+        "expo-audio",
+        {
+          "enableBackgroundPlayback": false,
+          "recordAudioAndroid": false
+        }
       ]
     ]
   }

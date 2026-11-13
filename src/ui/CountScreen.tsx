@@ -1,5 +1,4 @@
 import Slider from '@react-native-community/slider';
-import { setAudioModeAsync, useAudioPlayer } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 import { useKeepAwake } from 'expo-keep-awake';
 import { projectLandmark } from 'expo-mediapipe-pose';
@@ -28,10 +27,16 @@ import {
 } from '../core/handImpactDetector';
 import { createOnsetDetector, type OnsetDetector } from '../core/onsetDetector';
 import {
+  isAudioStudioAvailable,
   requestMicPermission,
   startAudioSource,
   stopAudioSource,
 } from '../native/audioSource';
+import {
+  createAudioPlayerSafe,
+  isExpoAudioAvailable,
+  setAudioModeAsyncSafe,
+} from '../native/expoAudioSafe';
 import MediaPipePoseView from '../native/MediaPipePoseView';
 import { createPoseSource, type PoseSourceController } from '../native/poseSource';
 import {
@@ -61,6 +66,8 @@ const WATCHDOG_TICK_MS = 500;
 const BACKGROUND_NOTICE = 'Paused — app left the screen. Tap Start to resume.';
 const MIC_NOTICE = 'Mic unavailable. Tap Start to retry.';
 const CAMERA_NOTICE = 'Camera unavailable. Tap Start to retry.';
+const NATIVE_AUDIO_NOTICE =
+  'Native audio missing — rebuild the development client (expo run:android).';
 const CAMERA_LOSS_CODES = new Set([
   'cameraConfiguration',
   'cameraPermission',
@@ -273,10 +280,13 @@ export default function CountScreen({ onBack }: Props) {
   const [stats, setStats] = useState<FusionStats>(EMPTY_STATS);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(() =>
+    isAudioStudioAvailable() && isExpoAudioAvailable()
+      ? null
+      : NATIVE_AUDIO_NOTICE,
+  );
   const [settingsNeeded, setSettingsNeeded] = useState(false);
   const foreground = useForeground();
-  const hitPlayer = useAudioPlayer(hitSound);
 
   const runningRef = useRef(false);
   const recordingRef = useRef(false);
@@ -290,7 +300,7 @@ export default function CountScreen({ onBack }: Props) {
   const viewSizeRef = useRef(viewSize);
   const pendingViewBoxRef = useRef<ViewRect | null>(null);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const hitPlayerRef = useRef(hitPlayer);
+  const hitPlayerRef = useRef(createAudioPlayerSafe(hitSound));
   const ignoreAudioUntilRef = useRef(0);
   const lastLevelUiMsRef = useRef(0);
   const lastFrameAtRef = useRef(0);
@@ -298,11 +308,14 @@ export default function CountScreen({ onBack }: Props) {
   const settingsRef = useRef<SessionSettings>({ ...DEFAULT_SESSION_SETTINGS });
 
   useEffect(() => {
-    hitPlayerRef.current = hitPlayer;
-  }, [hitPlayer]);
+    const player = hitPlayerRef.current;
+    return () => {
+      player.remove?.();
+    };
+  }, []);
 
   useEffect(() => {
-    setAudioModeAsync({
+    setAudioModeAsyncSafe({
       playsInSilentMode: true,
       interruptionMode: 'mixWithOthers',
       shouldPlayInBackground: false,

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" fill="none">
+  <rect width="390" height="844" rx="40" fill="#0b0b0e"/>
+  <text x="32" y="90" fill="#f5f5f7" font-family="system-ui" font-size="18" font-weight="700">Practice Drills</text>
+  <rect x="32" y="120" width="326" height="72" rx="16" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="162" fill="#f5f5f7" font-family="system-ui" font-size="16">Jab Builder</text>
+  <rect x="32" y="208" width="326" height="72" rx="16" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="250" fill="#f5f5f7" font-family="system-ui" font-size="16">Cross Control</text>
+  <rect x="32" y="296" width="326" height="72" rx="16" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="338" fill="#f5f5f7" font-family="system-ui" font-size="16">1-2 Combo</text>
+  <circle cx="330" cy="160" r="8" fill="#3B82F6"/>
+</svg>

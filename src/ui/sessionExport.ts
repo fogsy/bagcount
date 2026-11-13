@@ -5,7 +5,7 @@ import * as Sharing from 'expo-sharing';
 import type { FusionLogEntry, FusionStats } from '../core/fusion';
 import type { SessionSettings } from './sessionSettings';
 
-export const SESSION_EXPORT_APP = 'bagcount';
+export const SESSION_EXPORT_APP = 'boxingai';
 export const SESSION_EXPORT_APP_VERSION = '1.0.0';
 
 export type SessionExportDevice = {

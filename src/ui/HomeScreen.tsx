@@ -152,7 +152,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BagCount</Text>
+      <Text style={styles.title}>BoxingAI</Text>
       <Text style={styles.status}>Camera: {cameraStatus}</Text>
       <Text style={styles.status}>Mic: {micStatus}</Text>
       {actionError != null ? <Text style={styles.error}>{actionError}</Text> : null}

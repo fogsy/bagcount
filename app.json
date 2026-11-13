@@ -1,18 +1,21 @@
 {
   "expo": {
-    "name": "BagCount",
+    "name": "BoxingAI",
     "slug": "bagcount",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow camera access for on-device pose tracking. Frames stay on-device."
+      }
     },
     "android": {
       "package": "com.bagcount.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0b0b0e",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -31,7 +34,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow camera access for on-device pose tracking.",
+          "cameraPermission": "Allow camera access for on-device pose tracking. Frames stay on-device.",
           "recordAudioAndroid": false
         }
       ],
@@ -50,7 +53,34 @@
           "enableBackgroundPlayback": false,
           "recordAudioAndroid": false
         }
-      ]
-    ]
+      ],
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0b0b0e",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "-keep class com.google.mediapipe.** { *; }\n-keep class com.google.protobuf.** { *; }\n-dontwarn com.google.protobuf.**\n-dontwarn com.google.mediapipe.proto.**\n-keep class expo.modules.** { *; }"
+          }
+        }
+      ],
+      "expo-asset"
+    ],
+    "extra": {
+      "privacyPolicyUrl": "https://example.com/privacy",
+      "eas": {
+        "projectId": "replace-with-eas-project-id"
+      }
+    }
   }
 }

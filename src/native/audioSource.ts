@@ -1,11 +1,10 @@
-import {
-  AudioStudioModule,
-  type AndroidConfig,
-  type RecordingInterruptionEvent,
-  type StartRecordingResult,
+import type {
+  AndroidConfig,
+  RecordingInterruptionEvent,
+  StartRecordingResult,
 } from '@siteed/audio-studio';
 import { LegacyEventEmitter, type EventSubscription } from 'expo-modules-core';
-import { PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 
 export type AudioSourceSetting = NonNullable<AndroidConfig['audioSource']>;
 export type ResolvedAudioSource = NonNullable<
@@ -42,15 +41,19 @@ type PermissionResult = {
   status?: string;
 };
 
-type AudioStudioPermissions = {
+type AudioStudioModuleType = {
   getPermissionsAsync?: () => Promise<PermissionResult>;
   requestPermissionsAsync: () => Promise<PermissionResult>;
+  startRecording: (options: Record<string, unknown>) => Promise<StartRecordingResult>;
+  stopRecording: () => Promise<unknown>;
 };
 
 const SAMPLE_RATE = 16000;
 const INTERVAL_MS = 10;
 const CHUNK_WATCHDOG_MS = 1500;
 const WATCHDOG_TICK_MS = 500;
+const MISSING_NATIVE_MSG =
+  'AudioStudio native module missing. Rebuild the development client (npx expo run:android|ios).';
 
 const LOSS_REASONS = new Set<RecordingInterruptionEvent['reason']>([
   'audioFocusLoss',
@@ -60,11 +63,29 @@ const LOSS_REASONS = new Set<RecordingInterruptionEvent['reason']>([
   'deviceSwitchFailed',
 ]);
 
+function loadAudioStudioModule(): AudioStudioModuleType | null {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const mod = require('@siteed/audio-studio') as {
+      AudioStudioModule?: AudioStudioModuleType;
+    };
+    return mod.AudioStudioModule ?? null;
+  } catch {
+    return null;
+  }
+}
+
+const AudioStudioModule = loadAudioStudioModule();
+
 let dataSubscription: EventSubscription | null = null;
 let interruptSubscription: EventSubscription | null = null;
 let watchdog: ReturnType<typeof setInterval> | null = null;
 let lastChunkMs = 0;
 let stopping = false;
+
+export function isAudioStudioAvailable(): boolean {
+  return AudioStudioModule != null;
+}
 
 function toFloat32(samples: Float32Array | number[]): Float32Array {
   return samples instanceof Float32Array ? samples : new Float32Array(samples);
@@ -96,20 +117,46 @@ function isRecordingLoss(event: RecordingInterruptionEvent): boolean {
   return event.isPaused === true || LOSS_REASONS.has(event.reason);
 }
 
-export async function getMicPermission(): Promise<MicPermission> {
-  const module = AudioStudioModule as AudioStudioPermissions;
-  if (typeof module.getPermissionsAsync === 'function') {
-    return toMicPermission(await module.getPermissionsAsync());
+async function getMicPermissionFallback(): Promise<MicPermission> {
+  if (Platform.OS !== 'android') {
+    return { granted: false, canAskAgain: true, status: 'unavailable' };
   }
   const granted = await PermissionsAndroid.check(
     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
   );
-  return { granted, canAskAgain: true };
+  return { granted, canAskAgain: true, status: granted ? 'granted' : 'denied' };
+}
+
+async function requestMicPermissionFallback(): Promise<MicPermission> {
+  if (Platform.OS !== 'android') {
+    return { granted: false, canAskAgain: true, status: 'unavailable' };
+  }
+  const result = await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+  );
+  const granted = result === PermissionsAndroid.RESULTS.GRANTED;
+  return {
+    granted,
+    canAskAgain: result !== PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN,
+    status: granted ? 'granted' : 'denied',
+  };
+}
+
+export async function getMicPermission(): Promise<MicPermission> {
+  if (AudioStudioModule == null) {
+    return getMicPermissionFallback();
+  }
+  if (typeof AudioStudioModule.getPermissionsAsync === 'function') {
+    return toMicPermission(await AudioStudioModule.getPermissionsAsync());
+  }
+  return getMicPermissionFallback();
 }
 
 export async function requestMicPermission(): Promise<MicPermission> {
-  const module = AudioStudioModule as AudioStudioPermissions;
-  return toMicPermission(await module.requestPermissionsAsync());
+  if (AudioStudioModule == null) {
+    return requestMicPermissionFallback();
+  }
+  return toMicPermission(await AudioStudioModule.requestPermissionsAsync());
 }
 
 export async function startAudioSource(options: {
@@ -117,11 +164,15 @@ export async function startAudioSource(options: {
   onChunk: (chunk: PcmChunk) => void;
   onInterrupted?: (reason: string) => void;
 }): Promise<StartAudioResult> {
+  if (AudioStudioModule == null) {
+    throw new Error(MISSING_NATIVE_MSG);
+  }
+
   clearWatchdog();
   clearSubscriptions();
 
   const requestedSource = options.audioSource ?? 'auto';
-  const emitter = new LegacyEventEmitter(AudioStudioModule);
+  const emitter = new LegacyEventEmitter(AudioStudioModule as never);
   lastChunkMs = performance.now();
 
   dataSubscription = emitter.addListener(
@@ -190,7 +241,9 @@ export async function stopAudioSource(): Promise<void> {
   clearWatchdog();
   clearSubscriptions();
   try {
-    await AudioStudioModule.stopRecording();
+    if (AudioStudioModule != null) {
+      await AudioStudioModule.stopRecording();
+    }
   } finally {
     stopping = false;
   }

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
 
-import HomeScreen from './src/ui/HomeScreen';
+import RootApp from './src/ui/RootApp';
 
-export default HomeScreen;
+export default RootApp;

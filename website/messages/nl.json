@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "title": "BoxingAI: AI-bokstcoach voor iPhone en Android",
+    "description": "Een AI-coach roept combo’s en scoort je slagen via de camera."
+  },
+  "nav": {
+    "features": "Functies",
+    "shop": "Shop",
+    "faq": "FAQ",
+    "getTheApp": "DOWNLOAD DE APP",
+    "home": "BoxingAI home",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "skip": "Naar inhoud"
+  },
+  "hero": {
+    "eyebrow": "AI BOKSCOACH · iOS & ANDROID",
+    "line1": "Gooi ’m.",
+    "line2": "Word gescoord.",
+    "line3": "Level up.",
+    "sub": "Een live AI-coach roept combo’s en telt je jabs in realtime via de camera.",
+    "appStore": "Download in de App Store",
+    "playStore": "Haal ’m op Google Play",
+    "badge1": "#1 BOKS-APP",
+    "badge2": "#2 FITNESS-APP"
+  },
+  "mockup": {
+    "toast": "JAB · CLEAN +10 XP",
+    "movesLabel": "Moves you train: JAB, CROSS, HOOK, UPPERCUT, 1-2, GUARD, FOOTWORK.",
+    "ticker": "JAB / CROSS / HOOK / UPPERCUT / 1-2 / GUARD / FOOTWORK"
+  },
+  "features": {
+    "title": "Gebouwd als een fight camp.",
+    "sub": "Dagelijkse missies, 30-dagenplan, streaks en XP.",
+    "missionTitle": "Today's mission",
+    "missionBody": "One focused session a day, picked for your level.",
+    "drillsTitle": "Drill library",
+    "drillsBody": "Jab Builder, Cross Control, 1-2 Combo, Speed Hands, and more.",
+    "leagueTitle": "Weekly city league",
+    "leagueBody": "Climb your city, your friends, or the world. Resets every week.",
+    "cardTitle": "Fighter card",
+    "cardBody": "Your stance, strengths, and what to work on next."
+  },
+  "faq": {
+    "title": "Vragen",
+    "q1": "Do I need gloves, pads or a bag?",
+    "a1": "No. Your phone and some floor space are enough. Gloves and a bag help, but they're optional.",
+    "q2": "I've never boxed. Is this for me?",
+    "a2": "Yes. You start with stance and the jab, and the coach adds new skills as you level up.",
+    "q3": "How does it know what I threw?",
+    "a3": "Pad Cam uses your phone's front camera to track your movement and tell a jab from a cross as you throw it.",
+    "q4": "Which phones does it work on?",
+    "a4": "iPhone and Android."
+  },
+  "cta": {
+    "title": "Stap in."
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "support": "Support",
+    "contact": "Contact",
+    "language": "Language",
+    "copyright": "© {year} BoxingAI"
+  },
+  "shop": {
+    "title": "Shop",
+    "madeFor": "MADE FOR",
+    "from": "from",
+    "shopCta": "SHOP →",
+    "addToCart": "In winkelwagen",
+    "soldOut": "Sold out",
+    "color": "Color",
+    "size": "Size",
+    "madeToOrder": "MADE TO ORDER",
+    "madeToOrderBody": "Printed when you order, so nothing sits in a warehouse.",
+    "ships": "SHIPS WORLDWIDE",
+    "shipsBody": "Fulfilled by Printful, with tracking on every order.",
+    "returns": "EASY RETURNS",
+    "returnsBody": "Misprint or damaged? We'll replace it.",
+    "sizeGuide": "SIZE GUIDE",
+    "sizeGuideBody": "Unisex fit. Between sizes? Size up. Full chart on each apparel page.",
+    "cart": "Winkelwagen",
+    "emptyCart": "Your cart is empty.",
+    "checkout": "Afrekenen",
+    "subtotal": "Subtotal",
+    "remove": "Remove",
+    "qty": "Qty",
+    "closeCart": "Close cart",
+    "demoNote": "Demo catalog — connect Shopify Storefront tokens to go live."
+  },
+  "legal": {
+    "draftBanner": "Draft — pending legal review",
+    "draftNote": "This is a working draft that counsel hasn't reviewed yet. The final version may change.",
+    "lastUpdated": "Last updated {date}"
+  },
+  "privacy": {
+    "title": "Website privacy policy",
+    "intro": "This policy covers boxingai.app, our link pages (/ig, /tt, /links and /go/…) and the contact form.",
+    "appNote": "Using the app? The BoxingAI app privacy policy covers the app itself. Buying merch? Shopify processes your order under the store's privacy policy and Shopify's own privacy policy.",
+    "whoTitle": "Who we are",
+    "whoBody": "BoxingAI is operated by {entity} (“we”, “us”), {address}. We decide how the information described here is used.",
+    "noSell": "We don't sell your personal information, and we don't use it for ad targeting.",
+    "visitTitle": "Visiting the website",
+    "visitBody": "Our host sees the pages you request, the site that sent you, your device and browser type, and your IP address when it delivers the site. It keeps short-lived server logs for security and debugging.",
+    "cookiesTitle": "Cookies and similar storage",
+    "cookiesBody": "The site sets only essential cookies. It doesn't use analytics cookies by default. Cookie names: bai_lang (language, 1 year), bai_consent (cookie choice, 180 days), bai_cr (region cookie choice flag, 24 hours).",
+    "rightsTitle": "Your rights",
+    "rightsBody": "Depending on where you live, you can ask to access, correct, delete or get a copy of your personal information. Email {email}.",
+    "contactTitle": "Contact",
+    "contactBody": "Email {email}."
+  },
+  "terms": {
+    "title": "Website terms",
+    "whichTitle": "Which terms apply",
+    "whichBody": "The BoxingAI app has its own terms. Shop orders are governed by the store's Terms of service, Refund policy and Shipping policy. These terms cover boxingai.app, link pages and the contact form.",
+    "agreeTitle": "Agreement",
+    "agreeBody": "These terms are a binding agreement between you and {entity}. By using the Website you accept these terms and our website privacy policy.",
+    "useTitle": "Acceptable use",
+    "useBody": "You agree not to scrape or redistribute the Website in bulk, send automated traffic to inflate clicks, bypass rate limits or bot checks, probe or disrupt systems, or use the Website unlawfully.",
+    "contactTitle": "Contact",
+    "contactBody": "Email {email}."
+  },
+  "support": {
+    "title": "Support",
+    "intro": "Website or shop? Use the contact form or email {email}. We'll get back to you, usually within two business days.",
+    "subsTitle": "Subscriptions",
+    "subsBody": "BoxingAI Pro is billed by Apple or Google. Cancel in your device subscription settings. Deleting the app doesn't cancel a subscription.",
+    "padTitle": "Pad Cam",
+    "padBody": "Prop your phone up, hands-free, so the front camera can see you, in good light with room to move. If rounds don't count, check camera permission.",
+    "crewTitle": "Crew invites",
+    "crewBody": "Crew codes are 6 characters. Open League → Friends in the app and enter the code.",
+    "deleteTitle": "Delete your account",
+    "deleteBody": "In the app: Settings → Delete account. Or email {email} from the address you sign in with."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Questions about a merch order, a return or a product? Send us a message and we'll reply by email, usually within two business days. You can also email {email}.",
+    "name": "Name",
+    "email": "Email",
+    "order": "Order number (optional)",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Thanks — we'll reply soon.",
+    "error": "Something went wrong. Email us directly."
+  },
+  "links": {
+    "title": "BoxingAI",
+    "getApp": "Get the app",
+    "shop": "Shop merch",
+    "support": "Support",
+    "instagram": "Instagram",
+    "tiktok": "TikTok"
+  },
+  "consent": {
+    "title": "Cookies",
+    "body": "We use essential cookies for language and remembering your choice. No ad pixels until you allow them.",
+    "essential": "Essential only",
+    "allow": "Allow optional",
+    "manage": "Cookie settings"
+  }
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" fill="none">
+  <rect width="390" height="844" rx="40" fill="#0b0b0e"/>
+  <text x="32" y="90" fill="#f5f5f7" font-family="system-ui" font-size="18" font-weight="700">Fighter Card</text>
+  <rect x="32" y="120" width="326" height="200" rx="20" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="160" fill="#a1a1aa" font-family="system-ui" font-size="13">Stance</text>
+  <text x="48" y="186" fill="#3B82F6" font-family="system-ui" font-size="22" font-weight="700">Orthodox</text>
+  <text x="48" y="230" fill="#f5f5f7" font-family="system-ui" font-size="14">Strengths: Jab · Guard</text>
+  <text x="48" y="258" fill="#71717a" font-family="system-ui" font-size="14">Work on: Rear hook</text>
+</svg>

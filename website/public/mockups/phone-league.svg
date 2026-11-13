@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" fill="none">
+  <rect width="390" height="844" rx="40" fill="#0b0b0e"/>
+  <text x="32" y="90" fill="#f5f5f7" font-family="system-ui" font-size="18" font-weight="700">City League</text>
+  <rect x="32" y="120" width="326" height="56" rx="12" fill="#1c1c24" stroke="#3B82F6"/>
+  <text x="48" y="154" fill="#f5f5f7" font-family="system-ui" font-size="15">1 · You</text>
+  <text x="300" y="154" fill="#3B82F6" font-family="system-ui" font-size="15">XP</text>
+  <rect x="32" y="188" width="326" height="56" rx="12" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="222" fill="#a1a1aa" font-family="system-ui" font-size="15">2 · Rival</text>
+  <rect x="32" y="256" width="326" height="56" rx="12" fill="#14141a" stroke="#2a2a35"/>
+  <text x="48" y="290" fill="#a1a1aa" font-family="system-ui" font-size="15">3 · Contender</text>
+</svg>

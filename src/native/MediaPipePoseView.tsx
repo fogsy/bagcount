@@ -8,13 +8,17 @@ type InferenceFailure = {
   code: string;
 };
 
+export type CameraFacing = 'front' | 'back';
+
 type Props = ViewProps & {
   source: PoseSourceController;
+  cameraFacing?: CameraFacing;
   onInferenceError?: (failure: InferenceFailure) => void;
 };
 
 export default function MediaPipePoseView({
   source,
+  cameraFacing = 'back',
   children,
   onInferenceError,
   ...viewProps
@@ -40,7 +44,7 @@ export default function MediaPipePoseView({
   return (
     <PoseCameraView
       {...viewProps}
-      cameraFacing="back"
+      cameraFacing={cameraFacing}
       frameLimit={30}
       skeleton={false}
       isActive={sourceActive && foreground}

@@ -1,0 +1,11 @@
+Phosphor Icons — MIT — https://github.com/phosphor-icons/core
+- Phosphor boxing-glove (fill/regular/bold/duotone) — MIT
+- Iconoir boxing-glove — MIT
+- Gentleface boxing-glove — MIT
+- Fluent UI Emoji Boxing glove — MIT (Microsoft)
+- Twemoji 🥊 — CC-BY 4.0 (Twitter)
+- OpenMoji 🥊 — CC BY-SA 4.0
+- Noto Emoji 🥊 — Apache 2.0 (Google)
+- EmojiOne / JoyPixels boxing-glove — via Iconify
+- Material Design Icons boxing-glove — Apache 2.0 / Pictogrammers
+- Game Icons boxing-glove-surprise — CC BY 3.0 (Lorc)
